@@ -4,7 +4,7 @@ Ein KI-Trainingspartner für Ausdauersport (Laufen, Trail, Ultra, Radfahren), um
 
 **→ [Coach einrichten](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/)** &nbsp;·&nbsp; **[Updates für Bestandsnutzer](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html)**
 
-Aktueller Stand: **v1.1**
+Aktueller Stand: **v1.2**
 
 ## Was ist das?
 
@@ -46,9 +46,13 @@ Format `MAJOR.MINOR[.PATCH]`. Ab v1.1 gilt:
 - **PATCH** (z. B. 1.5 → 1.5.1): Verfeinerung, Klarstellung, Wortlaut, Doku-Anpassung, kleiner Tweak an bestehendem Verhalten.
 - **MAJOR** (→ 2.0): nur bei grundlegendem Umbau des Konzepts.
 
-So steigen die Nummern langsamer. Die gesamte Entwicklung nach der Erstausgabe wurde bewusst zu **einem** Release v1.1 zusammengefasst (nichts wurde vorher über das Update-System ausgeliefert). Bestehende Labels (v1.0, v1.1) bleiben ab jetzt unverändert – die Update-Seite ordnet Nutzer über genau diese Nummern zu, nachträgliches Umbenennen würde den Abgleich brechen. Die Vergleichslogik (`cmp` in `update.html`) kommt mit dreiteiligen Nummern bereits klar; bei einem Patch einfach die neue Nummer als Dropdown-Option ergänzen und `LATEST` setzen.
+So steigen die Nummern langsamer. Die gesamte Entwicklung nach der Erstausgabe wurde bewusst zu **einem** Release v1.1 zusammengefasst (nichts wurde vorher über das Update-System ausgeliefert). Bereits vergebene Labels bleiben ab jetzt unverändert – die Update-Seite ordnet Nutzer über genau diese Nummern zu, nachträgliches Umbenennen würde den Abgleich brechen. Die Vergleichslogik (`cmp` in `update.html`) kommt mit dreiteiligen Nummern bereits klar; bei einem Patch einfach die neue Nummer als Dropdown-Option ergänzen und `LATEST` setzen.
 
 ## Änderungshistorie
+
+**v1.2 · August 2026**
+- Krafttraining – Qualität: Der Coach fragt aktiv nach einem Kraftplan von einer Fachperson (Trainer:in, Sport-/Physiotherapeut:in) und nutzt ihn als Rückgrat, statt frei zu generieren. Ohne Fachplan bleibt er transparent, konservativ und empfiehlt eine fachliche Abnahme – besonders bei Verletzungshistorie.
+- Krafttraining – Logging: Der Coach empfiehlt, Krafteinheiten in einer Tracking-App (z. B. Hevy) zu erfassen und die Zusammenfassung einzufügen; er überträgt sie in den Notion-Gym-Log und verfolgt die Progression (Strava bildet Kraft kaum ab).
 
 **v1.1 · August 2026**
 - **Update-System für Bestandsnutzer:** `# VERSION`-Block im Prompt (der Coach kennt seinen Stand) plus separate **Update-Seite** (`update.html`), die versioniert nur neue Prompt-Änderungen als Modul liefert – der Coach geht sie einzeln mit dem Nutzer durch (übernehmen/anpassen/überspringen). Grund-Seite verlinkt dezent dorthin.

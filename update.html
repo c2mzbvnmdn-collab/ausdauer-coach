@@ -103,7 +103,8 @@
     <select id="ver">
       <option value="" selected disabled>— bitte wählen —</option>
       <option value="1.0">Ausgangsversion (kein „# VERSION"-Block im Prompt)</option>
-      <option value="1.1">v1.1 (aktuell – mit „# VERSION"-Block)</option>
+      <option value="1.1">v1.1</option>
+      <option value="1.2">v1.2 (aktuell)</option>
     </select>
     <p class="small muted">Nicht sicher? Frag deinen Coach einfach: <b>„Welche Version bist du?"</b> Nennt er dir eine Nummer (z.&nbsp;B. 1.1), wähl sie. Sagt er, dass er keine Version kennt oder in seinen Anweisungen keine steht, nutzt du die Ausgangsversion. Im Zweifel wähl die Ausgangsversion – falsch wählen kann nichts kaputt machen: Der Coach gleicht beim Update jede Änderung gegen deinen echten Prompt ab und überspringt, was du schon hast.</p>
 
@@ -111,18 +112,18 @@
   </section>
 
   <p class="footer">
-    Update-Seite · Version 1.1 · August 2026<br>
+    Update-Seite · Version 1.2 · August 2026<br>
     <a href="index.html">Grund-Einrichtung</a> · Der Coach ersetzt keine ärztliche oder physiotherapeutische Beratung.
   </p>
 </div>
 
 <script>
 /* ---- Datenmodell: nur PROMPT-wirksame Änderungen kommen hier rein ---- */
-const LATEST = "1.1";
+const LATEST = "1.2";
 
 const VERSION_BLOCK =
 `# VERSION
-Du arbeitest in Version 1.1 – nenne sie, wenn ich danach frage. Neuere Versionen
+Du arbeitest in Version 1.2 – nenne sie, wenn ich danach frage. Neuere Versionen
 kannst du nicht selbst erkennen. Wenn ich aktualisieren möchte, öffne ich die
 Update-Seite (https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html),
 wähle dort meine aktuelle Version und bekomme nur die neuen Änderungen als Modul
@@ -156,6 +157,33 @@ const ONBOARD6_AKTUELL =
    ausdauerbezogene Sportarten (z. B. Boxen, Ballsport) beschreibe ich Art, Dauer
    und Intensität kurz selbst. Alles optional, aber es vervollständigt das Bild.`;
 
+// --- v1.2: Krafttraining ---
+const KRAFT_FUND_ALT =
+`- Kraft ist kein Beiwerk, sondern FUNDAMENT – für Laufökonomie, Verletzungsschutz,
+  Bergkraft (bergauf laufen, am Anstieg fahren) und einen stabilen Rumpf/Rücken.`;
+
+const KRAFT_FUND_NEU =
+`- Kraft ist kein Beiwerk, sondern FUNDAMENT – für Laufökonomie, Verletzungsschutz,
+  Bergkraft (bergauf laufen, am Anstieg fahren) und einen stabilen Rumpf/Rücken.
+- QUELLE & QUALITÄT: Frag aktiv, ob ich einen Kraftplan von einer Fachperson habe
+  (Trainer:in, Sport- oder Physiotherapeut:in). Wenn ja, ist DER das Rückgrat – du
+  übernimmst ihn und passt ihn nur behutsam an Ziel und Belastung an, statt einen
+  eigenen zu erfinden. Liegt nichts vor, baust du einen aus etablierten Prinzipien
+  (siehe unten), sagst aber offen, dass das eine allgemeine Grundlage ist, hältst
+  die Progression konservativ und empfiehlst – besonders bei Verletzungshistorie
+  oder Schmerzen – eine fachliche Abnahme. Du ersetzt keine Trainings- oder
+  Physiotherapie.`;
+
+const KRAFT_PROG_ALT =
+`- PROGRESSION VERFOLGEN (Lasten, Sätze, Wdh) – im Notion-Gym-Log, wenn verbunden.`;
+
+const KRAFT_PROG_NEU =
+`- PROGRESSION VERFOLGEN (Lasten, Sätze, Wdh, RPE): Empfiehl mir, meine
+  Krafteinheiten in einer Tracking-App zu erfassen (z. B. Hevy) – Strava bildet
+  Kraft kaum sinnvoll ab. Nach dem Studio kopiere ich die Zusammenfassung aus der
+  App und füge sie dir ein; du überträgst sie in den Notion-Gym-Log und verfolgst
+  die Progression. Ohne App nimmst du sie kurz mit mir durch.`;
+
 const RELEASES = [
   {
     v: "1.1", date: "August 2026",
@@ -183,6 +211,26 @@ const RELEASES = [
       }
     ],
     info: ["Ebenfalls in v1.1, aber nur Website/Doku (nichts für deinen Prompt): Notion-Übersicht verschlankt, Sofort-Start konsolidiert, \u201eAssistent\u201c \u2192 \u201eCoach\u201c, Triathlon-Hinweis entfernt, Umstieg auf Web-only + README."]
+  },
+  {
+    v: "1.2", date: "August 2026",
+    changes: [
+      {
+        title: "Krafttraining: Fachplan hat Vorrang",
+        what: "Der Coach fragt aktiv nach einem Kraftplan von einer Fachperson (Trainer:in, Sport-/Physiotherapeut:in) und nutzt ihn als Rückgrat. Ohne Fachplan bleibt er transparent und konservativ und empfiehlt eine fachliche Abnahme – besonders bei Verletzungshistorie.",
+        kind: "replace",
+        find: KRAFT_FUND_ALT,
+        replaceWith: KRAFT_FUND_NEU
+      },
+      {
+        title: "Krafteinheiten per Tracking-App loggen (z. B. Hevy)",
+        what: "Der Coach empfiehlt, Krafteinheiten in einer Tracking-App zu erfassen (z. B. Hevy) und die Zusammenfassung nach dem Studio einzufügen – Strava bildet Kraft kaum ab. Er überträgt sie in den Notion-Gym-Log und verfolgt die Progression.",
+        kind: "replace",
+        find: KRAFT_PROG_ALT,
+        replaceWith: KRAFT_PROG_NEU
+      }
+    ],
+    info: []
   }
 ];
 
