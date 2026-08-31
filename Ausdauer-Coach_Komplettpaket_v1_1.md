@@ -380,7 +380,7 @@ Der Coach trägt seit v1.1 einen `# VERSION`-Block – er weiß also immer, auf 
 Neue Versionen spielst du **nicht** über den kompletten Grund-Prompt ein (das würde deine eigenen Anpassungen überschreiben), sondern über die **Update-Seite**: <https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html>
 
 So läuft ein Update:
-1. Update-Seite öffnen und deine **aktuelle Version** auswählen (steht im `# VERSION`-Block deines Coaches; wer ganz früh eingerichtet hat, hat noch keine – dann „v1.1 / Original" wählen).
+1. Update-Seite öffnen und deine **aktuelle Version** auswählen. Nicht sicher? Frag deinen Coach „Welche Version bist du?" – nennt er eine Nummer (z. B. 1.1), wähl sie; kommt keine, nutzt du die Ausgangsversion.
 2. Die Seite zeigt **nur die Änderungen, die für dich neu sind** – nach Version sortiert – und baut daraus **einen** kopierbaren Update-Prompt.
 3. Diesen Update-Prompt in deinen Coach-Chat einfügen (am besten im Projekt, in dem dein Coach-Prompt hinterlegt ist – dann sieht er deine aktuelle Fassung und kann abgleichen).
 4. Der Coach geht die Änderungen **einzeln** mit dir durch: Er erklärt jede, prüft, ob du sie schon hast oder selbst angepasst hast, und fragt: übernehmen, anpassen oder überspringen?
