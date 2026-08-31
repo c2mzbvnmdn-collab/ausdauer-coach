@@ -104,7 +104,9 @@
       <option value="" selected disabled>— bitte wählen —</option>
       <option value="1.1">v1.1 / Original (kein „# VERSION"-Block im Prompt)</option>
       <option value="1.2">v1.2</option>
-      <option value="1.3">v1.3 (aktuell)</option>
+      <option value="1.3">v1.3</option>
+      <option value="1.4">v1.4</option>
+      <option value="1.5">v1.5 (aktuell)</option>
     </select>
     <p class="small muted">Nicht sicher? Frag deinen Coach „Welche Version bist du?" – ab v1.3 sagt er's dir. Wer keinen <code>#&nbsp;VERSION</code>-Block hat, ist v1.1 oder v1.2: Steht in deiner <code>ROLLE</code>, dass andere Sportarten in der <em>Belastung</em> berücksichtigt werden, bist du v1.2 – sonst v1.1. Wählst du falsch, ist das nicht schlimm: Der Coach gleicht jede Änderung gegen deinen echten Prompt ab und überspringt, was du schon hast.</p>
 
@@ -112,18 +114,18 @@
   </section>
 
   <p class="footer">
-    Update-Seite · Version 1.3 · August 2026<br>
+    Update-Seite · Version 1.5 · August 2026<br>
     <a href="index.html">Grund-Einrichtung</a> · Der Coach ersetzt keine ärztliche oder physiotherapeutische Beratung.
   </p>
 </div>
 
 <script>
 /* ---- Datenmodell: nur PROMPT-wirksame Änderungen kommen hier rein ---- */
-const LATEST = "1.3";
+const LATEST = "1.5";
 
 const VERSION_BLOCK =
 `# VERSION
-Du arbeitest in Version 1.3 – nenne sie, wenn ich danach frage. Neuere Versionen
+Du arbeitest in Version 1.5 – nenne sie, wenn ich danach frage. Neuere Versionen
 kannst du nicht selbst erkennen. Wenn ich aktualisieren möchte, öffne ich die
 Update-Seite (https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html),
 wähle dort meine aktuelle Version und bekomme nur die neuen Änderungen als Modul
@@ -138,6 +140,37 @@ das sagst du offen. Treibe ich aber nebenher anderen Sport (z. B. Schwimmen,
 Boxen, Klettern), berücksichtigst du dessen Belastung: zusätzliche Ermüdung,
 Regenerationsbedarf und Verletzungsrisiko fließen in die Steuerung von Lauf und
 Rad ein, auch wenn du die Einheit selbst nicht planst.`;
+
+const ROLLE_V14 =
+`Fundament. Andere Sportarten planst du nicht – dafür fehlt dir die Fachtiefe, und
+das sagst du offen. Ihre Belastung rechnest du aber aktiv ein: Treibe ich
+nebenher anderen Sport (z. B. Schwimmen, Boxen, Klettern, Ballsport), fragst du
+von dir aus nach Art, Häufigkeit und Intensität und bietest an, die zusätzliche
+Ermüdung, den Regenerationsbedarf und das Verletzungsrisiko in die Steuerung von
+Lauf und Rad einzurechnen – auch wenn du die Einheit selbst nicht planst. Nehme
+ich später eine neue Aktivität dazu, greifst du das von dir aus auf.`;
+
+const OLD_ONBOARD6 =
+`6. SPORTARTEN – was, wie oft, worauf Lust.`;
+
+const NEW_ONBOARD6 =
+`6. ANDERE SPORTARTEN – Mache ich neben Laufen und Rad noch anderen Sport (z. B.
+   Boxen, Schwimmen, Ballsport, Kampfsport, Kraftsport über das Fundament
+   hinaus)? Wenn ja: Art, Häufigkeit, Intensität. Frag aktiv danach – daran denke
+   ich oft nicht von selbst. Du planst diese Sportarten nicht, rechnest ihre
+   Belastung (Ermüdung, Regeneration, Verletzungsrisiko) aber in Lauf und Rad ein
+   und bietest mir das an.`;
+
+const ONBOARD6_V15 =
+`6. ANDERE SPORTARTEN – Mache ich neben Laufen und Rad noch anderen Sport (z. B.
+   Boxen, Schwimmen, Ballsport, Kampfsport, Kraftsport über das Fundament
+   hinaus)? Wenn ja: Art, Häufigkeit, Intensität. Frag aktiv danach – daran denke
+   ich oft nicht von selbst. Du planst diese Sportarten nicht, rechnest ihre
+   Belastung (Ermüdung, Regeneration, Verletzungsrisiko) aber in Lauf und Rad ein
+   und bietest mir das an. Ausdauer-Aktivitäten (z. B. Schwimmen, Rudern, Wandern)
+   kannst du – wenn Strava verbunden ist – von dort ziehen; biete das an. Für nicht
+   ausdauerbezogene Sportarten (z. B. Boxen, Ballsport) beschreibe ich Art, Dauer
+   und Intensität kurz selbst. Alles optional, aber es vervollständigt das Bild.`;
 
 const RELEASES = [
   {
@@ -159,6 +192,37 @@ const RELEASES = [
       kind: "add",
       position: "ganz an den Anfang, direkt vor \u201e# ROLLE\u201c",
       addText: VERSION_BLOCK
+    }],
+    info: []
+  },
+  {
+    v: "1.4", date: "August 2026",
+    changes: [
+      {
+        title: "Andere Sportarten aktiv erfragen und einrechnen",
+        what: "Der Coach fragt jetzt von sich aus nach anderen Sportarten (Art, Häufigkeit, Intensität) und bietet an, ihre Belastung einzurechnen – statt nur zu reagieren, wenn du sie erwähnst.",
+        kind: "replace",
+        find: NEW_ROLLE,
+        replaceWith: ROLLE_V14
+      },
+      {
+        title: "Onboarding-Frage nach anderen Sportarten geschärft",
+        what: "Im Onboarding wird jetzt gezielt nach anderen Sportarten und deren Belastung gefragt, statt vage nach „Sportarten, worauf Lust\".",
+        kind: "replace",
+        find: OLD_ONBOARD6,
+        replaceWith: NEW_ONBOARD6
+      }
+    ],
+    info: []
+  },
+  {
+    v: "1.5", date: "August 2026",
+    changes: [{
+      title: "Andere Sportarten: Strava-Pull bzw. manuelle Beschreibung",
+      what: "Ausdauer-Aktivitäten (z. B. Schwimmen, Rudern, Wandern) bietet der Coach an, aus Strava zu ziehen; für nicht ausdauerbezogene Sportarten (z. B. Boxen, Ballsport) beschreibst du Art, Dauer und Intensität selbst.",
+      kind: "replace",
+      find: NEW_ONBOARD6,
+      replaceWith: ONBOARD6_V15
     }],
     info: []
   }

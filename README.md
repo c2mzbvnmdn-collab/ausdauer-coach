@@ -4,7 +4,7 @@ Ein KI-Trainingspartner für Ausdauersport (Laufen, Trail, Ultra, Radfahren), um
 
 **→ [Coach einrichten](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/)** &nbsp;·&nbsp; **[Updates für Bestandsnutzer](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html)**
 
-Aktueller Stand: **v1.3**
+Aktueller Stand: **v1.5**
 
 ## Was ist das?
 
@@ -39,6 +39,12 @@ Statische GitHub-Pages-Seite: kein Build, keine Abhängigkeiten, kein Backend.
 Die Versionsnummer bedeutet für Nutzer „ich habe alle Änderungen bis hier gesehen und entschieden" – nicht „exakter Prompt-Stand". Eine abgelehnte Änderung setzt die Version trotzdem hoch und taucht nicht erneut auf; wer sie später doch will, lässt das Update ab einer früheren Version noch einmal laufen.
 
 ## Änderungshistorie
+
+**v1.5 · August 2026**
+- Erfassung anderer Sportarten präzisiert: Ausdauer-Aktivitäten (z. B. Schwimmen, Rudern, Wandern) bietet der Coach an, aus Strava zu ziehen; für nicht ausdauerbezogene Sportarten (z. B. Boxen, Ballsport) beschreibt der Nutzer Art, Dauer und Intensität selbst. Beides optional, für ein vollständigeres Belastungsbild.
+
+**v1.4 · August 2026**
+- Andere Sportarten aktiver: Der Coach fragt im Onboarding gezielt nach anderen Sportarten (Art, Häufigkeit, Intensität) und bietet von sich aus an, ihre Belastung (Ermüdung, Regeneration, Verletzungsrisiko) in die Steuerung von Lauf und Rad einzurechnen. ROLLE von reaktiv auf proaktiv umgestellt, Onboarding-Punkt „Sportarten" geschärft.
 
 **v1.3 · August 2026**
 - **Update-System für Bestandsnutzer:** Der Prompt trägt jetzt einen `# VERSION`-Block – der Coach kennt seinen Stand. Neue, separate **Update-Seite** (`update.html`) liefert versioniert nur die jeweils neuen Prompt-Änderungen als Modul, das der Coach einzeln mit dem Nutzer durchgeht (übernehmen/anpassen/überspringen).
