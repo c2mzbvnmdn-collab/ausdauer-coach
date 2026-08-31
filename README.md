@@ -4,7 +4,7 @@ Ein KI-Trainingspartner für Ausdauersport (Laufen, Trail, Ultra, Radfahren), um
 
 **→ [Coach einrichten](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/)** &nbsp;·&nbsp; **[Updates für Bestandsnutzer](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html)**
 
-Aktueller Stand: **v1.5**
+Aktueller Stand: **v1.1**
 
 ## Was ist das?
 
@@ -38,33 +38,30 @@ Statische GitHub-Pages-Seite: kein Build, keine Abhängigkeiten, kein Backend.
 
 Die Versionsnummer bedeutet für Nutzer „ich habe alle Änderungen bis hier gesehen und entschieden" – nicht „exakter Prompt-Stand". Eine abgelehnte Änderung setzt die Version trotzdem hoch und taucht nicht erneut auf; wer sie später doch will, lässt das Update ab einer früheren Version noch einmal laufen.
 
+### Versionsschema
+
+Format `MAJOR.MINOR[.PATCH]`. Ab v1.1 gilt:
+
+- **MINOR** (z. B. 1.5 → 1.6): spürbare Verhaltensänderung – neue oder geänderte Regeln, neuer Abschnitt, neues Feature.
+- **PATCH** (z. B. 1.5 → 1.5.1): Verfeinerung, Klarstellung, Wortlaut, Doku-Anpassung, kleiner Tweak an bestehendem Verhalten.
+- **MAJOR** (→ 2.0): nur bei grundlegendem Umbau des Konzepts.
+
+So steigen die Nummern langsamer. Die gesamte Entwicklung nach der Erstausgabe wurde bewusst zu **einem** Release v1.1 zusammengefasst (nichts wurde vorher über das Update-System ausgeliefert). Bestehende Labels (v1.0, v1.1) bleiben ab jetzt unverändert – die Update-Seite ordnet Nutzer über genau diese Nummern zu, nachträgliches Umbenennen würde den Abgleich brechen. Die Vergleichslogik (`cmp` in `update.html`) kommt mit dreiteiligen Nummern bereits klar; bei einem Patch einfach die neue Nummer als Dropdown-Option ergänzen und `LATEST` setzen.
+
 ## Änderungshistorie
 
-**v1.5 · August 2026**
-- Erfassung anderer Sportarten präzisiert: Ausdauer-Aktivitäten (z. B. Schwimmen, Rudern, Wandern) bietet der Coach an, aus Strava zu ziehen; für nicht ausdauerbezogene Sportarten (z. B. Boxen, Ballsport) beschreibt der Nutzer Art, Dauer und Intensität selbst. Beides optional, für ein vollständigeres Belastungsbild.
-
-**v1.4 · August 2026**
-- Andere Sportarten aktiver: Der Coach fragt im Onboarding gezielt nach anderen Sportarten (Art, Häufigkeit, Intensität) und bietet von sich aus an, ihre Belastung (Ermüdung, Regeneration, Verletzungsrisiko) in die Steuerung von Lauf und Rad einzurechnen. ROLLE von reaktiv auf proaktiv umgestellt, Onboarding-Punkt „Sportarten" geschärft.
-
-**v1.3 · August 2026**
-- **Update-System für Bestandsnutzer:** Der Prompt trägt jetzt einen `# VERSION`-Block – der Coach kennt seinen Stand. Neue, separate **Update-Seite** (`update.html`) liefert versioniert nur die jeweils neuen Prompt-Änderungen als Modul, das der Coach einzeln mit dem Nutzer durchgeht (übernehmen/anpassen/überspringen).
-- Grund-Seite verlinkt dezent auf die Update-Seite.
-- **PDF-Ausgabe eingestellt.** Das Paket wird als Website (Einrichtung + Updates), README und Markdown-Komplettdokument geführt; die Änderungshistorie liegt kanonisch in dieser README.
-
-**v1.2 · August 2026**
-- Prompt/ROLLE geschärft: Andere Sportarten werden weiterhin nicht geplant, ihre **Belastung** (Ermüdung, Regeneration, Verletzungsrisiko) fließt aber jetzt ausdrücklich in die Steuerung von Lauf und Rad ein.
-- Notion-Struktur entdoppelt: Teil 3 auf einen Kurzüberblick eingedampft (volle Struktur + Gym-Log-Tabelle stehen nur noch im Prompt als verbindlicher Fassung).
-- Sofort-Start-Hinweis konsolidiert: nur noch eine ausführliche Stelle, sonst ein Verweis.
-- Website: „Assistent" → „Coach" vereinheitlicht; Triathlon-Hinweis entfernt (Fokus bleibt Laufen & Radfahren).
-
 **v1.1 · August 2026**
-- Hinweis ergänzt: Die Connector-Einrichtung (Strava/Notion) läuft über claude.ai im Browser, **nicht** über die Desktop-App.
+- **Update-System für Bestandsnutzer:** `# VERSION`-Block im Prompt (der Coach kennt seinen Stand) plus separate **Update-Seite** (`update.html`), die versioniert nur neue Prompt-Änderungen als Modul liefert – der Coach geht sie einzeln mit dem Nutzer durch (übernehmen/anpassen/überspringen). Grund-Seite verlinkt dezent dorthin.
+- **Andere Sportarten:** Der Coach fragt im Onboarding aktiv danach (Art, Häufigkeit, Intensität), plant sie nicht, rechnet ihre Belastung (Ermüdung, Regeneration, Verletzungsrisiko) aber in Lauf und Rad ein und bietet das an. Ausdauer-Aktivitäten bietet er an, aus Strava zu ziehen; nicht ausdauerbezogene beschreibt der Nutzer selbst.
+- **Dokumentation & Konsistenz:** Notion-Struktur entdoppelt, Sofort-Start konsolidiert, „Assistent" → „Coach" vereinheitlicht, Triathlon-Hinweis entfernt (Fokus bleibt Laufen & Radfahren).
+- **Web-only:** PDF-Ausgabe eingestellt; das Paket läuft als Website (Einrichtung + Updates), README (kanonische Änderungshistorie) und Markdown-Komplettdokument. Versionsschema festgelegt (MAJOR.MINOR.PATCH).
+- Hinweis: Connector-Einrichtung (Strava/Notion) läuft über claude.ai im Browser, **nicht** über die Desktop-App.
 
 **v1.0 · August 2026 – Erste vollständige Ausgabe**
 - System-Prompt komplett: Onboarding mit Ziel + Datum zuerst; stehende Regeln (Datum-/Wetter-Abruf, Effort vor Pace, Progression, Fueling); Nutzungsmodi; Übernahme geplanter Einheiten & Pläne aus anderen Quellen; Notion-Struktur direkt im Prompt.
 - Eigene Bausteine: Kraft & Mobilität; Ausrüstungsberatung (inkl. Prüfung der aktuellen Verfügbarkeit, Laufschuh-/Laufanalyse-Hinweis, Wettkampf-Pflichtausrüstung); Gesundheits-Leitplanken.
 - Ton-Varianten (Berater & unterstützend), kinderleichte Einrichtung, Abschnitt „Chat neu starten", Abschnitt „Geht das mit Claude Free?".
-- Ausgeliefert in drei Formaten: Website, PDF und Markdown (PDF seit v1.3 eingestellt; Markdown wird fortgeführt).
+- Ursprünglich in drei Formaten ausgeliefert (Website, PDF, Markdown); PDF seit v1.1 eingestellt.
 
 ---
 
