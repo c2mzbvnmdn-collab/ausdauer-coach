@@ -110,7 +110,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><b>Ausdauer-Coach</b> &nbsp;·&nbsp; Einrichtung</div>
+  <div class="brand"><b>Ausdauer-Coach</b> &nbsp;·&nbsp; Einrichtung &nbsp;·&nbsp; <a href="update.html" style="color:var(--orange); text-decoration:none">Schon eingerichtet? → Updates</a></div>
 
   <section class="card" id="landing">
     <p class="eyebrow">KI-Trainingspartner für Ausdauersport</p>
@@ -148,7 +148,7 @@
       <p>Dieser Coach ist aus jahrelanger eigener Lauferfahrung entstanden – aus echtem Training, aus Wettkämpfen und aus Fehlern – und geprägt vom Austausch mit Trainern und Physiotherapeuten. Kein aus dem Lehrbuch generierter Bot, sondern gelebte Praxis in Form eines Prompts.</p>
     </div>
 
-    <div class="warn small"><b>Was er nicht ist:</b> kein Arzt und kein Physiotherapeut. Bei Schmerzen, Verletzungen oder gesundheitlichen Themen sagt er das klar und verweist an Fachleute.<br><b>Für Triathlon:</b> die Rad- und Lauf-Vorbereitung deckt er voll ab – Schwimmen und triathlon-spezifische Periodisierung gehören (noch) nicht zu seinem Fokus.</div>
+    <div class="warn small"><b>Was er nicht ist:</b> kein Arzt und kein Physiotherapeut. Bei Schmerzen, Verletzungen oder gesundheitlichen Themen sagt er das klar und verweist an Fachleute.<br><b>Sein Feld:</b> Laufen und Radfahren (plus Kraft &amp; Mobilität als Fundament). Andere Sportarten plant er nicht – ihre Belastung bezieht er aber in deine Steuerung ein.</div>
 
     <div style="text-align:center; margin-top:24px">
       <button class="btn btn-primary" id="begin" style="font-size:17px; padding:15px 30px">In vier Schritten einrichten →</button>
@@ -180,7 +180,7 @@
     <section class="step show" data-step="0">
       <p class="eyebrow">Dein KI-Trainer für Ausdauersport</p>
       <h1>In vier Schritten startklar</h1>
-      <p class="lead">Dieser Assistent führt dich durch die Einrichtung deines persönlichen Ausdauer-Coaches – ehrlich, datenbasiert, mit Gedächtnis. Kein Vorwissen nötig, ~10 Minuten.</p>
+      <p class="lead">Dieser Coach führt dich durch seine eigene Einrichtung – ehrlich, datenbasiert, mit Gedächtnis. Kein Vorwissen nötig, ~10 Minuten.</p>
       <p class="small muted">Die Verbindungen richtest du in deiner Claude-App ein. Diese Seite erklärt jeden Schritt und liefert dir den Prompt zum Kopieren – die eigentlichen Klicks bleiben bei dir.</p>
       <div class="note small">Nur mal reinschnuppern? Du kannst ganz unten unter „Ohne Einrichtung testen" sofort loslegen – ohne Datenanbindung und Gedächtnis.</div>
     </section>
@@ -191,12 +191,23 @@
       <h2>Den Coach „scharf schalten"</h2>
       <p>Der Prompt ist die komplette Anweisung an Claude. Am saubersten: ein neues <b>Projekt</b> in Claude anlegen und den Prompt in die Projekt-Anweisungen einfügen. Kein Projekt? Dann als erste Nachricht in einen Chat einfügen.</p>
       <button class="btn btn-copy btn-wide" data-copy="prompt"><span class="ico">⧉</span><span class="lbl">Prompt kopieren</span></button>
-      <details class="viewer"><summary>Prompt ansehen</summary><pre class="code" id="prompt"># ROLLE
+      <details class="viewer"><summary>Prompt ansehen</summary><pre class="code" id="prompt"># VERSION
+Du arbeitest in Version 1.3 – nenne sie, wenn ich danach frage. Neuere Versionen
+kannst du nicht selbst erkennen. Wenn ich aktualisieren möchte, öffne ich die
+Update-Seite (https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html),
+wähle dort meine aktuelle Version und bekomme nur die neuen Änderungen als Modul
+zum Einfügen – den Grund-Coach ersetze ich dabei nicht.
+
+# ROLLE
 Du bist mein persönlicher Ausdauer-Coach und Berater – fachlich fundiert in
 Trainingslehre, Sportphysiologie und Sporternährung, aber ausdrücklich kein
 Ja-Sager. Dein Fokus liegt auf Ausdauersport: Laufen (Straße, Trail, Ultra) und
 Radfahren, ergänzt durch Kraft- sowie Mobilitäts-/Stabilitätstraining als
-Fundament. Andere Sportarten sind nicht dein Feld – dort hältst du dich zurück.
+Fundament. Andere Sportarten planst du nicht – dafür fehlt dir die Fachtiefe, und
+das sagst du offen. Treibe ich aber nebenher anderen Sport (z. B. Schwimmen,
+Boxen, Klettern), berücksichtigst du dessen Belastung: zusätzliche Ermüdung,
+Regenerationsbedarf und Verletzungsrisiko fließen in die Steuerung von Lauf und
+Rad ein, auch wenn du die Einheit selbst nicht planst.
 
 # ERSTER SCHRITT: ONBOARDING (zu Beginn der ersten Unterhaltung)
 Bevor du irgendetwas planst oder bewertest, klär mit mir strukturiert die
@@ -513,7 +524,7 @@ möglichst nichts von Hand tun müssen.
     </details>
   </div>
 
-  <p class="footer">Version 1.1 · August 2026<br>Ein Startpunkt zum Anpassen. Der Coach ersetzt keine ärztliche oder<br>physiotherapeutische Beratung.</p>
+  <p class="footer">Version 1.3 · August 2026<br>Ein Startpunkt zum Anpassen. Der Coach ersetzt keine ärztliche oder<br>physiotherapeutische Beratung.</p>
 </div>
 
 <!-- copy sources -->

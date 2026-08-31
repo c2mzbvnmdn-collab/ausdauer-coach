@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ausdauer-Coach – Updates</title>
+<style>
+  :root{
+    --pine:#0e2b28; --pine2:#123330; --paper:#f6f4ee; --card:#fbfaf6;
+    --ink:#16302d; --muted:#5c6b68; --line:#e0ddd2;
+    --orange:#ea580c; --orange-d:#c2410c; --green:#2b8a3e; --slate:#64748b;
+    --shadow:0 18px 50px rgba(6,24,22,.28);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--pine);
+    background-image:
+      radial-gradient(1200px 500px at 50% -10%, #1a423d 0%, rgba(26,66,61,0) 60%),
+      repeating-linear-gradient(115deg, rgba(255,255,255,.018) 0 2px, rgba(255,255,255,0) 2px 26px);
+    min-height:100vh; line-height:1.55;
+    padding:28px 16px 60px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .wrap{width:100%; max-width:760px}
+  .brand{color:#cfe3df; text-align:center; margin:4px 0 18px; font-size:13px; letter-spacing:.14em; text-transform:uppercase}
+  .brand b{color:#fff; font-weight:800; letter-spacing:.06em}
+  .brand a{color:#ffd7bf; text-decoration:none}
+  .card{
+    background:var(--card); border-radius:20px; box-shadow:var(--shadow);
+    padding:30px 30px 26px; border:1px solid rgba(255,255,255,.06);
+  }
+  .eyebrow{color:var(--orange); font-weight:800; text-transform:uppercase; letter-spacing:.16em; font-size:12px; margin:0 0 6px}
+  h1{font-size:30px; line-height:1.1; margin:0 0 10px; letter-spacing:-.02em; color:var(--pine2)}
+  h2{font-size:22px; line-height:1.15; margin:0 0 8px; letter-spacing:-.01em; color:var(--pine2)}
+  h3{font-size:17px; margin:0 0 4px; color:var(--pine2)}
+  p{margin:9px 0}
+  .lead{color:var(--muted); font-size:16px}
+  .muted{color:var(--muted)}
+  .small{font-size:13.5px}
+
+  ul{margin:10px 0; padding-left:20px} li{margin:6px 0}
+  .note{background:#eef4f2; border-left:4px solid var(--green); border-radius:10px; padding:10px 14px; margin:14px 0; font-size:14px; color:#28433f}
+  .warn{background:#fff4ec; border-left:4px solid var(--orange); border-radius:10px; padding:10px 14px; margin:14px 0; font-size:14px; color:#6b3b1e}
+
+  .btn{appearance:none; border:none; cursor:pointer; font:inherit; font-weight:700; border-radius:12px; padding:13px 20px; transition:transform .08s, background .2s, box-shadow .2s}
+  .btn:active{transform:translateY(1px)}
+  .btn-copy{background:var(--pine2); color:#fff; display:inline-flex; align-items:center; gap:9px}
+  .btn-copy:hover{background:#1c4a44}
+  .btn-copy.ok{background:var(--green)}
+  .btn-wide{width:100%; justify-content:center; display:inline-flex; align-items:center; gap:9px}
+
+  label.q{display:block; font-weight:800; color:var(--pine2); margin:18px 0 8px; font-size:15px}
+  select{
+    width:100%; font:inherit; font-size:16px; padding:13px 14px; border-radius:12px;
+    border:1.5px solid var(--line); background:#fff; color:var(--pine2); cursor:pointer;
+    border-bottom-width:2px;
+  }
+  select:focus{outline:none; border-color:var(--orange)}
+
+  details.viewer{margin:14px 0 2px; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff}
+  details.viewer>summary{cursor:pointer; padding:12px 16px; font-weight:700; color:var(--pine2); list-style:none; display:flex; align-items:center; gap:8px}
+  details.viewer>summary::-webkit-details-marker{display:none}
+  details.viewer>summary::before{content:"▸"; color:var(--orange); transition:transform .2s}
+  details.viewer[open]>summary::before{transform:rotate(90deg)}
+  pre.code{margin:0; border-top:1px solid var(--line); background:#0f2b28; color:#e7efec; padding:16px; font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace; font-size:12px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; max-height:360px; overflow:auto}
+
+  .rel{border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0; background:#fff}
+  .rel .vtag{display:inline-block; background:var(--pine2); color:#fff; font-weight:800; font-size:12.5px; letter-spacing:.06em; padding:3px 10px; border-radius:20px; margin-bottom:10px}
+  .rel .chg{margin:12px 0}
+  .rel .chg .tt{font-weight:800; color:var(--pine2)}
+  .rel .kind{display:inline-block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:2px 8px; border-radius:6px; margin-left:8px; vertical-align:middle}
+  .kind.add{background:#eef7f0; color:#1d6b34; border:1px solid #cfe8d6}
+  .kind.replace{background:#fff4ec; color:#9a3d12; border:1px solid #f6d9c6}
+  .rel .diff{margin:8px 0 0}
+  .rel .diff pre{margin:6px 0; border-radius:8px; padding:10px 12px; font-family:"SFMono-Regular",Consolas,monospace; font-size:12px; white-space:pre-wrap; word-wrap:break-word}
+  .diff .old{background:#fdecea; color:#7d2b23; border-left:3px solid #d9534f}
+  .diff .new{background:#eaf6ec; color:#1d5a2c; border-left:3px solid var(--green)}
+  .diff .lbl{font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-top:8px}
+  .rel .info{font-size:13.5px; color:var(--muted); margin-top:10px; padding-top:10px; border-top:1px dashed var(--line)}
+
+  .footer{color:#9fb2ad; text-align:center; font-size:12.5px; margin-top:26px; line-height:1.6}
+  .footer a{color:#cfe3df}
+  a{color:#0b6b63} .card a{color:var(--orange-d); font-weight:600}
+  #result:empty{display:none}
+
+  @media (max-width:560px){ .card{padding:22px 18px} h1{font-size:25px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><b>Ausdauer-Coach</b> &nbsp;·&nbsp; Updates &nbsp;·&nbsp; <a href="index.html">← Zur Einrichtung</a></div>
+
+  <section class="card">
+    <p class="eyebrow">Nur die Neuerungen – nicht der ganze Coach</p>
+    <h1>Deinen Coach aktualisieren</h1>
+    <p class="lead">Diese Seite gibt dir <b>nur die Änderungen, die seit deiner Version dazugekommen sind</b> – als einen Update-Prompt zum Einfügen. Deinen bestehenden Coach mit all deinen eigenen Anpassungen ersetzt du dabei nicht.</p>
+
+    <div class="note small">So funktioniert's: Version wählen → die neuen Änderungen erscheinen → <b>Update-Prompt kopieren</b> → in deinen Coach-Chat einfügen. Der Coach geht sie dann <b>einzeln</b> mit dir durch und du entscheidest bei jeder: übernehmen, anpassen oder überspringen.</div>
+
+    <label class="q" for="ver">Welche Version nutzt du gerade?</label>
+    <select id="ver">
+      <option value="" selected disabled>— bitte wählen —</option>
+      <option value="1.1">v1.1 / Original (kein „# VERSION"-Block im Prompt)</option>
+      <option value="1.2">v1.2</option>
+      <option value="1.3">v1.3 (aktuell)</option>
+    </select>
+    <p class="small muted">Nicht sicher? Frag deinen Coach „Welche Version bist du?" – ab v1.3 sagt er's dir. Wer keinen <code>#&nbsp;VERSION</code>-Block hat, ist v1.1 oder v1.2: Steht in deiner <code>ROLLE</code>, dass andere Sportarten in der <em>Belastung</em> berücksichtigt werden, bist du v1.2 – sonst v1.1. Wählst du falsch, ist das nicht schlimm: Der Coach gleicht jede Änderung gegen deinen echten Prompt ab und überspringt, was du schon hast.</p>
+
+    <div id="result"></div>
+  </section>
+
+  <p class="footer">
+    Update-Seite · Version 1.3 · August 2026<br>
+    <a href="index.html">Grund-Einrichtung</a> · Der Coach ersetzt keine ärztliche oder physiotherapeutische Beratung.
+  </p>
+</div>
+
+<script>
+/* ---- Datenmodell: nur PROMPT-wirksame Änderungen kommen hier rein ---- */
+const LATEST = "1.3";
+
+const VERSION_BLOCK =
+`# VERSION
+Du arbeitest in Version 1.3 – nenne sie, wenn ich danach frage. Neuere Versionen
+kannst du nicht selbst erkennen. Wenn ich aktualisieren möchte, öffne ich die
+Update-Seite (https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html),
+wähle dort meine aktuelle Version und bekomme nur die neuen Änderungen als Modul
+zum Einfügen – den Grund-Coach ersetze ich dabei nicht.`;
+
+const OLD_ROLLE =
+`Fundament. Andere Sportarten sind nicht dein Feld – dort hältst du dich zurück.`;
+
+const NEW_ROLLE =
+`Fundament. Andere Sportarten planst du nicht – dafür fehlt dir die Fachtiefe, und
+das sagst du offen. Treibe ich aber nebenher anderen Sport (z. B. Schwimmen,
+Boxen, Klettern), berücksichtigst du dessen Belastung: zusätzliche Ermüdung,
+Regenerationsbedarf und Verletzungsrisiko fließen in die Steuerung von Lauf und
+Rad ein, auch wenn du die Einheit selbst nicht planst.`;
+
+const RELEASES = [
+  {
+    v: "1.2", date: "August 2026",
+    changes: [{
+      title: "Andere Sportarten in der Belastung berücksichtigen",
+      what: "Die ROLLE stellt jetzt klar: andere Sportarten (z. B. Schwimmen, Boxen, Klettern) plant der Coach nicht – ihre Belastung fließt aber in die Steuerung von Lauf und Rad ein.",
+      kind: "replace",
+      find: OLD_ROLLE,
+      replaceWith: NEW_ROLLE
+    }],
+    info: ["Reines Website-/Doku-Aufräumen (\u201eAssistent\u201c \u2192 \u201eCoach\u201c, Notion-Übersicht verschlankt, Sofort-Start-Hinweis konsolidiert) – daran musst du in deinem Prompt nichts ändern."]
+  },
+  {
+    v: "1.3", date: "August 2026",
+    changes: [{
+      title: "Versions-Block einbauen",
+      what: "Ein \u201e# VERSION\u201c-Block ganz oben im Prompt – damit dein Coach immer weiß, auf welchem Stand er ist, und du künftig gezielt aktualisieren kannst.",
+      kind: "add",
+      position: "ganz an den Anfang, direkt vor \u201e# ROLLE\u201c",
+      addText: VERSION_BLOCK
+    }],
+    info: []
+  }
+];
+
+/* ---- Logik ---- */
+function cmp(a, b){
+  const pa = a.split(".").map(Number), pb = b.split(".").map(Number);
+  for(let i=0;i<Math.max(pa.length,pb.length);i++){
+    const d = (pa[i]||0) - (pb[i]||0);
+    if(d) return d;
+  }
+  return 0;
+}
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+function buildPrompt(from, rels){
+  let out =
+`# UPDATE-MODUL FÜR DEN AUSDAUER-COACH  (neue Änderungen bis v${LATEST})
+
+Das hier ist KEIN neuer Coach und KEINE neue Grundanweisung, sondern die Liste der
+Änderungen, die seit meiner Version (v${from}) dazugekommen sind. Bitte arbeite sie
+mit mir Schritt für Schritt durch – ich entscheide jede Änderung bewusst.
+
+So gehst du vor:
+1. Sieh dir zuerst meine aktuellen Coach-Anweisungen an (sie stehen in diesem
+   Projekt bzw. weiter oben in diesem Chat).
+2. Geh die Änderungen unten der Reihe nach durch – eine nach der anderen.
+3. Prüfe bei jeder: Habe ich das schon (dann sag es und überspring) oder habe ich
+   die betroffene Stelle selbst angepasst (dann zeig mir, wie sich meine Fassung
+   und die Neuerung kombinieren lassen)?
+4. Frag mich pro Änderung: übernehmen, anpassen oder überspringen?
+5. Wenn wir durch sind: Gib mir den fertigen, vollständigen Textblock zum Einfügen
+   aus und erinnere mich, die Zeile „Du arbeitest in Version …" auf ${LATEST} zu
+   setzen – auch wenn ich einzelne Änderungen übersprungen habe. Die Versionsnummer
+   bedeutet „ich habe alle Änderungen bis hier gesehen und entschieden".
+
+Du kannst meine Projekt-Anweisungen nicht selbst ändern – du lieferst mir den Text,
+einfügen muss ich.
+
+————————————————————————
+ÄNDERUNGEN SEIT MEINER VERSION
+————————————————————————
+`;
+  rels.forEach(r => {
+    out += `\n## v${r.v} (${r.date})\n`;
+    r.changes.forEach((c, i) => {
+      out += `\nÄnderung ${i+1}: ${c.title}\n`;
+      if(c.kind === "replace"){
+        out += `Art: Ersetzen\nSuche in meinem Prompt genau diesen Text:\n"""\n${c.find}\n"""\nund ersetze ihn durch:\n"""\n${c.replaceWith}\n"""\n`;
+      } else {
+        out += `Art: Hinzufügen (${c.position})\nFüge diesen Block ein:\n"""\n${c.addText}\n"""\n`;
+      }
+    });
+  });
+  out += `\n————————————————————————\nFang jetzt mit der ersten Änderung an.`;
+  return out;
+}
+
+function render(){
+  const from = document.getElementById("ver").value;
+  const box = document.getElementById("result");
+  if(!from){ box.innerHTML = ""; return; }
+
+  if(cmp(from, LATEST) >= 0){
+    box.innerHTML = `<div class="note" style="margin-top:20px"><b>Du bist auf dem aktuellen Stand (v${LATEST}).</b> Es gibt nichts einzuspielen. Sobald eine neue Version erscheint, taucht sie hier auf.</div>`;
+    return;
+  }
+
+  const rels = RELEASES.filter(r => cmp(r.v, from) > 0).sort((a,b)=>cmp(a.v,b.v));
+  const prompt = buildPrompt(from, rels);
+
+  let html = `<h2 style="margin-top:22px">Neu seit v${from}</h2>`;
+  rels.forEach(r => {
+    html += `<div class="rel"><span class="vtag">v${r.v} · ${r.date}</span>`;
+    r.changes.forEach(c => {
+      html += `<div class="chg"><span class="tt">${esc(c.title)}</span><span class="kind ${c.kind}">${c.kind==="add"?"Hinzufügen":"Ersetzen"}</span>`;
+      html += `<p class="small" style="margin:6px 0 0">${esc(c.what)}</p>`;
+      if(c.kind === "replace"){
+        html += `<div class="diff"><div class="lbl">Vorher</div><pre class="old">${esc(c.find)}</pre><div class="lbl">Nachher</div><pre class="new">${esc(c.replaceWith)}</pre></div>`;
+      } else {
+        html += `<div class="diff"><div class="lbl">Neu (${esc(c.position)})</div><pre class="new">${esc(c.addText)}</pre></div>`;
+      }
+      html += `</div>`;
+    });
+    if(r.info && r.info.length){
+      html += `<div class="info">` + r.info.map(x=>"ℹ️ "+esc(x)).join("<br>") + `</div>`;
+    }
+    html += `</div>`;
+  });
+
+  html += `<div class="warn small"><b>Wichtig:</b> Kopier den Update-Prompt und füg ihn <b>im selben Projekt/Chat wie deinen Coach</b> ein – nur dann sieht er deine aktuelle Fassung und kann sauber abgleichen.</div>`;
+  html += `<button class="btn btn-copy btn-wide" id="copyBtn"><span class="ico">⧉</span><span class="lbl">Update-Prompt kopieren</span></button>`;
+  html += `<details class="viewer" style="margin-top:12px"><summary>Update-Prompt ansehen</summary><pre class="code" id="promptOut">${esc(prompt)}</pre></details>`;
+
+  box.innerHTML = html;
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    const btn = this;
+    navigator.clipboard.writeText(prompt).then(()=>{
+      btn.classList.add("ok");
+      btn.querySelector(".lbl").textContent = "Kopiert ✓";
+      setTimeout(()=>{ btn.classList.remove("ok"); btn.querySelector(".lbl").textContent = "Update-Prompt kopieren"; }, 2200);
+    }).catch(()=>{
+      const r = document.createRange(); r.selectNode(document.getElementById("promptOut"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      try{ document.execCommand("copy"); btn.querySelector(".lbl").textContent = "Kopiert ✓"; }catch(e){}
+      s.removeAllRanges();
+    });
+  });
+}
+
+document.getElementById("ver").addEventListener("change", render);
+</script>
+</body>
+</html>
