@@ -80,6 +80,15 @@
   .diff .lbl{font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-top:8px}
   .rel .info{font-size:13.5px; color:var(--muted); margin-top:10px; padding-top:10px; border-top:1px dashed var(--line)}
 
+  /* Aktionsblock oben: Prompt ohne Scrollen erreichbar */
+  .action{margin:22px 0 4px; padding:18px 18px 16px; border:1.5px solid var(--line); border-top:4px solid var(--orange); border-radius:16px; background:#fff}
+  .action h2{color:var(--pine2)}
+  ul.tldr{margin:8px 0 14px; padding-left:20px}
+  ul.tldr li{margin:3px 0; font-size:14px; color:var(--pine2); font-weight:600}
+  details.diffbox{margin-top:10px; background:#fcfbf7}
+  details.diffbox>summary{font-weight:600; font-size:13.5px; padding:9px 12px}
+  details.diffbox .diff{padding:0 12px 12px}
+
   .footer{color:#9fb2ad; text-align:center; font-size:12.5px; margin-top:26px; line-height:1.6}
   .footer a{color:#cfe3df}
   a{color:#0b6b63} .card a{color:var(--orange-d); font-weight:600}
@@ -358,16 +367,33 @@ function render(){
   const rels = RELEASES.filter(r => cmp(r.v, from) > 0).sort((a,b)=>cmp(a.v,b.v));
   const prompt = buildPrompt(from, rels);
 
-  let html = `<h2 style="margin-top:22px">Neu seit v${from}</h2>`;
+  // Anzahl Änderungen für die Kurzfassung oben
+  const total = rels.reduce((n, r) => n + r.changes.length, 0);
+  const verList = rels.map(r => "v" + r.v).join(", ");
+
+  // --- 1. AKTIONSBLOCK (ohne Scrollen erreichbar) ---
+  let html = `<div class="action">
+    <h2 style="margin:0 0 6px">Update auf v${LATEST}</h2>
+    <p class="small" style="margin:0 0 4px"><b>${total} ${total===1?"Änderung":"Änderungen"}</b> seit deiner Version (${verList}). Kopier den Prompt und füg ihn <b>im selben Projekt/Chat wie deinen Coach</b> ein – er geht sie einzeln mit dir durch, du entscheidest bei jeder.</p>
+    <ul class="tldr">` +
+    rels.reduce(function(acc, r){ return acc.concat(r.changes.map(function(c){ return `<li>${esc(c.title)}</li>`; })); }, []).join("") +
+    `</ul>
+    <button class="btn btn-copy btn-wide" id="copyBtn"><span class="ico">⧉</span><span class="lbl">Update-Prompt kopieren</span></button>
+    <details class="viewer" style="margin-top:10px"><summary>Update-Prompt ansehen</summary><pre class="code" id="promptOut">${esc(prompt)}</pre></details>
+  </div>`;
+
+  // --- 2. DETAILS (freiwillig, darunter) ---
+  html += `<h2 style="margin-top:26px">Was sich ändert</h2>
+    <p class="small muted" style="margin-top:-2px">Nur zum Nachlesen – für das Update selbst brauchst du das nicht.</p>`;
   rels.forEach(r => {
     html += `<div class="rel"><span class="vtag">v${r.v} · ${r.date}</span>`;
     r.changes.forEach(c => {
       html += `<div class="chg"><span class="tt">${esc(c.title)}</span><span class="kind ${c.kind}">${c.kind==="add"?"Hinzufügen":"Ersetzen"}</span>`;
       html += `<p class="small" style="margin:6px 0 0">${esc(c.what)}</p>`;
       if(c.kind === "replace"){
-        html += `<div class="diff"><div class="lbl">Vorher</div><pre class="old">${esc(c.find)}</pre><div class="lbl">Nachher</div><pre class="new">${esc(c.replaceWith)}</pre></div>`;
+        html += `<details class="viewer diffbox"><summary>Textänderung ansehen</summary><div class="diff"><div class="lbl">Vorher</div><pre class="old">${esc(c.find)}</pre><div class="lbl">Nachher</div><pre class="new">${esc(c.replaceWith)}</pre></div></details>`;
       } else {
-        html += `<div class="diff"><div class="lbl">Neu (${esc(c.position)})</div><pre class="new">${esc(c.addText)}</pre></div>`;
+        html += `<details class="viewer diffbox"><summary>Neuen Text ansehen</summary><div class="diff"><div class="lbl">Neu (${esc(c.position)})</div><pre class="new">${esc(c.addText)}</pre></div></details>`;
       }
       html += `</div>`;
     });
@@ -376,10 +402,6 @@ function render(){
     }
     html += `</div>`;
   });
-
-  html += `<div class="warn small"><b>Wichtig:</b> Kopier den Update-Prompt und füg ihn <b>im selben Projekt/Chat wie deinen Coach</b> ein – nur dann sieht er deine aktuelle Fassung und kann sauber abgleichen.</div>`;
-  html += `<button class="btn btn-copy btn-wide" id="copyBtn"><span class="ico">⧉</span><span class="lbl">Update-Prompt kopieren</span></button>`;
-  html += `<details class="viewer" style="margin-top:12px"><summary>Update-Prompt ansehen</summary><pre class="code" id="promptOut">${esc(prompt)}</pre></details>`;
 
   box.innerHTML = html;
   document.getElementById("copyBtn").addEventListener("click", function(){

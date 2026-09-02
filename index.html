@@ -616,11 +616,11 @@ möglichst nichts von Hand tun müssen.
 
   // copy
   function copyText(txt, btn){
-    const done=()=>{ if(!btn) return; const lbl=btn.querySelector('.lbl'), ico=btn.querySelector('.ico'), old=lbl.textContent, oi=ico?ico.textContent:'';
+    const onCopied=()=>{ if(!btn) return; const lbl=btn.querySelector('.lbl'), ico=btn.querySelector('.ico'), old=lbl.textContent, oi=ico?ico.textContent:'';
       btn.classList.add('ok'); lbl.textContent='Kopiert!'; if(ico) ico.textContent='✓';
       setTimeout(()=>{btn.classList.remove('ok'); lbl.textContent=old; if(ico) ico.textContent=oi;},1600); };
-    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt,done)); }
-    else fallback(txt,done);
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(onCopied).catch(()=>fallback(txt,onCopied)); }
+    else fallback(txt,onCopied);
   }
   function fallback(txt,cb){ const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select();
     try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); cb&&cb(); }
