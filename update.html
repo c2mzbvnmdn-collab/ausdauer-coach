@@ -104,7 +104,8 @@
       <option value="" selected disabled>— bitte wählen —</option>
       <option value="1.0">Ausgangsversion (kein „# VERSION"-Block im Prompt)</option>
       <option value="1.1">v1.1</option>
-      <option value="1.2">v1.2 (aktuell)</option>
+      <option value="1.2">v1.2</option>
+      <option value="1.3">v1.3 (aktuell)</option>
     </select>
     <p class="small muted">Nicht sicher? Frag deinen Coach einfach: <b>„Welche Version bist du?"</b> Nennt er dir eine Nummer (z.&nbsp;B. 1.1), wähl sie. Sagt er, dass er keine Version kennt oder in seinen Anweisungen keine steht, nutzt du die Ausgangsversion. Im Zweifel wähl die Ausgangsversion – falsch wählen kann nichts kaputt machen: Der Coach gleicht beim Update jede Änderung gegen deinen echten Prompt ab und überspringt, was du schon hast.</p>
 
@@ -112,18 +113,18 @@
   </section>
 
   <p class="footer">
-    Update-Seite · Version 1.2 · August 2026<br>
+    Update-Seite · Version 1.3 · August 2026<br>
     <a href="index.html">Grund-Einrichtung</a> · Der Coach ersetzt keine ärztliche oder physiotherapeutische Beratung.
   </p>
 </div>
 
 <script>
 /* ---- Datenmodell: nur PROMPT-wirksame Änderungen kommen hier rein ---- */
-const LATEST = "1.2";
+const LATEST = "1.3";
 
 const VERSION_BLOCK =
 `# VERSION
-Du arbeitest in Version 1.2 – nenne sie, wenn ich danach frage. Neuere Versionen
+Du arbeitest in Version 1.3 – nenne sie, wenn ich danach frage. Neuere Versionen
 kannst du nicht selbst erkennen. Wenn ich aktualisieren möchte, öffne ich die
 Update-Seite (https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html),
 wähle dort meine aktuelle Version und bekomme nur die neuen Änderungen als Modul
@@ -184,6 +185,38 @@ const KRAFT_PROG_NEU =
   App und füge sie dir ein; du überträgst sie in den Notion-Gym-Log und verfolgst
   die Progression. Ohne App nimmst du sie kurz mit mir durch.`;
 
+// --- v1.3: Datum niemals raten ---
+const DATUM_ALT =
+`- DATUM/WOCHENTAG/UHRZEIT vor jeder Planung, Terminfrage oder zeitlichen
+  Einordnung per Tool abrufen. Nie raten, nie aus dem Kontext schätzen.`;
+
+const DATUM_NEU =
+`- DATUM/WOCHENTAG/UHRZEIT vor jeder Planung, Terminfrage oder zeitlichen
+  Einordnung per Tool abrufen. Nie raten, nie aus dem Kontext schätzen.
+  Liefert das Tool nichts oder schlägt es fehl, arbeitest du NICHT weiter mit
+  einem angenommenen Datum: Sag mir offen, dass du das Datum nicht ermitteln
+  konntest, und frag mich nach dem heutigen Datum samt Wochentag. Erst mit meiner
+  Angabe planst du weiter. Ein falsches Datum oder ein falscher Wochentag macht
+  jede Wochenplanung, Tapering- und Wettkampfrechnung unbrauchbar – lieber
+  einmal nachfragen als einmal raten.`;
+
+// --- v1.3: Modell-Empfehlung im Onboarding ---
+const ONBOARD8_ALT =
+`8. TOOLS – frag, ob ich Strava und Notion verbinden möchte (siehe Abschnitt
+   TOOLS), und empfiehl es klar mit Begründung.`;
+
+const ONBOARD8_NEU =
+`8. TOOLS – frag, ob ich Strava und Notion verbinden möchte (siehe Abschnitt
+   TOOLS), und empfiehl es klar mit Begründung.
+9. MODELL-EMPFEHLUNG (einmalig zu Beginn, danach nie wieder): Weise mich kurz
+   darauf hin, dass für dich die NEUESTE verfügbare Sonnet-Variante empfohlen ist
+   – schnell, gut mit Strava und Notion, deckt alles ab und schont mein
+   Nutzungskontingent. Sag mir dazu ehrlich, dass du dein eigenes Modell nicht
+   zuverlässig erkennen kannst: Ich muss selbst im Modell-Auswahlmenü nachsehen.
+   Habe ich dort irgendwann eine ältere Version fest ausgewählt, bleibe ich sonst
+   darauf sitzen. Behaupte nie, auf welchem Modell du läufst – auch nicht auf
+   Nachfrage; verweise mich stattdessen auf das Menü.`;
+
 const RELEASES = [
   {
     v: "1.1", date: "August 2026",
@@ -231,6 +264,30 @@ const RELEASES = [
       }
     ],
     info: []
+  },
+  {
+    v: "1.3", date: "August 2026",
+    changes: [
+      {
+        title: "Datum niemals raten – im Zweifel nachfragen",
+        what: "Wenn das Datums-Tool nichts liefert oder fehlschlägt, plant der Coach nicht mit einem angenommenen Datum weiter, sondern sagt das offen und fragt dich nach dem heutigen Datum samt Wochentag. Ein falscher Wochentag macht Wochenplanung, Tapering und Wettkampfrechnung unbrauchbar.",
+        kind: "replace",
+        find: DATUM_ALT,
+        replaceWith: DATUM_NEU
+      },
+      {
+        title: "Modell-Empfehlung im Onboarding",
+        what: "Der Coach weist dich einmalig zu Beginn darauf hin, dass die neueste verfügbare Sonnet-Variante empfohlen ist – und sagt ehrlich dazu, dass er sein eigenes Modell nicht erkennen kann und du selbst im Modell-Menü nachsehen musst.",
+        kind: "replace",
+        find: ONBOARD8_ALT,
+        replaceWith: ONBOARD8_NEU
+      }
+    ],
+    // Vorlage für neue Claude-Modelle (kein Prompt-Delta, nur Hinweis):
+    // info: ["Neu: Es gibt inzwischen <Modell>. Wenn du in Claude noch eine ältere
+    //         Version fest ausgewählt hast, stell im Modell-Menü darauf um – der
+    //         Coach kann sein eigenes Modell nicht selbst wechseln."]
+    info: ["Aktuell ist Claude Sonnet 5 die neueste Sonnet-Variante (Stand: September 2026). Schau einmal in dein Modell-Auswahlmenü: Hast du dort früher manuell eine ältere Version (z. B. Sonnet 4.6) fest ausgewählt, stell auf die neueste um. Das Standardmodell auf Free und Pro ist ohnehin die aktuelle Sonnet-Generation – wer nie manuell umgestellt hat, muss nichts tun."]
   }
 ];
 

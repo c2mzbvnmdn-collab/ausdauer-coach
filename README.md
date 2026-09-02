@@ -4,7 +4,7 @@ Ein KI-Trainingspartner für Ausdauersport (Laufen, Trail, Ultra, Radfahren), um
 
 **→ [Coach einrichten](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/)** &nbsp;·&nbsp; **[Updates für Bestandsnutzer](https://c2mzbvnmdn-collab.github.io/ausdauer-coach/update.html)**
 
-Aktueller Stand: **v1.2**
+Aktueller Stand: **v1.3**
 
 ## Was ist das?
 
@@ -35,8 +35,13 @@ Statische GitHub-Pages-Seite: kein Build, keine Abhängigkeiten, kein Backend.
 3. Changelog unten ergänzen.
 4. Der `# VERSION`-Block muss in `index.html` und der `VERSION_BLOCK` in `update.html` **identisch** sein. Ebenso die alte/neue Textfassung eines `replace`-Deltas exakt so, wie sie im Prompt steht.
 5. Fest verdrahtete URL: Die Adresse der Update-Seite steht im `# VERSION`-Block und in `update.html`. Bei Repo-Umbenennung beide nachziehen.
+6. Ist seit dem letzten Release eine **neue Claude-Modellgeneration** erschienen (z. B. ein neues Sonnet), eine `info`-Zeile ins aktuelle Release setzen: „Es gibt inzwischen \<Modell\> – im Modell-Auswahlmenü darauf umstellen, falls du noch eine ältere Version fest ausgewählt hast." Das gehört ausdrücklich **nicht** in den Prompt: Der Coach kann sein eigenes Modell weder erkennen noch wechseln, und ein Modellname im Prompt veraltet. Auch den Modell-Hinweis in Schritt 1 von `index.html` und im Markdown-Paket prüfen – er nennt bewusst nur „Sonnet" ohne Versionsnummer und sollte das bleiben.
 
 Die Versionsnummer bedeutet für Nutzer „ich habe alle Änderungen bis hier gesehen und entschieden" – nicht „exakter Prompt-Stand". Eine abgelehnte Änderung setzt die Version trotzdem hoch und taucht nicht erneut auf; wer sie später doch will, lässt das Update ab einer früheren Version noch einmal laufen.
+
+### Release-Rhythmus
+
+Änderungen werden **gesammelt**, nicht einzeln veröffentlicht. Zwischen zwei Releases fließen neue Punkte ohne eigene Nummer in die Dateien; die Versionsnummer wird erst vergeben, wenn bewusst released wird. So bleibt jede Nummer ein echter Auslieferungsstand statt eines Zwischenschritts, und Nutzer bekommen pro Update ein sinnvoll gebündeltes Paket. Wurde eine Nummer noch nicht veröffentlicht, darf sie zusammengefasst werden; ab Veröffentlichung ist sie fix (die Update-Seite ordnet Nutzer darüber zu).
 
 ### Versionsschema
 
@@ -49,6 +54,11 @@ Format `MAJOR.MINOR[.PATCH]`. Ab v1.1 gilt:
 So steigen die Nummern langsamer. Die gesamte Entwicklung nach der Erstausgabe wurde bewusst zu **einem** Release v1.1 zusammengefasst (nichts wurde vorher über das Update-System ausgeliefert). Bereits vergebene Labels bleiben ab jetzt unverändert – die Update-Seite ordnet Nutzer über genau diese Nummern zu, nachträgliches Umbenennen würde den Abgleich brechen. Die Vergleichslogik (`cmp` in `update.html`) kommt mit dreiteiligen Nummern bereits klar; bei einem Patch einfach die neue Nummer als Dropdown-Option ergänzen und `LATEST` setzen.
 
 ## Änderungshistorie
+
+**v1.3 · August 2026**
+- Datum niemals raten: Liefert das Datums-Tool nichts oder schlägt es fehl, plant der Coach nicht mit einem angenommenen Datum weiter, sondern sagt das offen und fragt nach dem heutigen Datum samt Wochentag. Ein falsches Datum oder ein falscher Wochentag macht Wochenplanung, Tapering- und Wettkampfrechnung unbrauchbar.
+- Modell-Empfehlung im Onboarding: Der Coach weist einmalig zu Beginn darauf hin, dass die neueste verfügbare Sonnet-Variante empfohlen ist, und sagt ehrlich dazu, dass er sein eigenes Modell nicht erkennen kann – der Nutzer sieht selbst im Modell-Menü nach. Bewusst ohne Versionsnummer im Prompt (die veraltet); die konkrete Nummer steht in der `info`-Zeile des Update-Moduls.
+- Website/Doku: Hinweis zur Modellwahl in Schritt 1 der Einrichtung ergänzt (Sonnet, ohne Versionsnummer).
 
 **v1.2 · August 2026**
 - Krafttraining – Qualität: Der Coach fragt aktiv nach einem Kraftplan von einer Fachperson (Trainer:in, Sport-/Physiotherapeut:in) und nutzt ihn als Rückgrat, statt frei zu generieren. Ohne Fachplan bleibt er transparent, konservativ und empfiehlt eine fachliche Abnahme – besonders bei Verletzungshistorie.
